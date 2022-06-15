@@ -15,9 +15,11 @@ const initState: ContactsItemInterface = {
 }
 
 export const Contacts = ({
-    searchApp
+    searchApp,
+    setLoader
 }: {
-    searchApp: string
+    searchApp: string,
+    setLoader: (s:boolean) => void
 }) => {
 
     const [list, setList] = useState<ContactsItemInterface[]>([])
@@ -29,9 +31,11 @@ export const Contacts = ({
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
+        setLoader(true)
         setTimeout(() => {
             setList(FAKEUSER.map((it, ind) => ({ ...it, id: ind })))
-        }, 100)
+            setLoader(false)
+        }, 2000)
     }, [])
 
     const addContact = () => {
